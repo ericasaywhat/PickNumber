@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Spec D Tuning</title>
+    <!-- <link href = "./css/master.css" rel = "stylesheet" type="text/css"> -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.0/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class = "container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                </ul>
+            </nav>
+            <h3 class="text-muted">Spec D Tuning Raffle!</h3>
+        </div>
+      <div class = "jumbotron">
+        <table border = 2 align="center">
+          <thead>
+            <td>Name</td>
+            <td>Number</td>
+          </thead>
+
+          {% for row in rows %}
+          <tr>
+            <td>{{row["name"]}}</td>
+            <td>{{row["num"]}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        <p>
+          <a href="/" class = "btn btn-lg btn-success" role = "button">Done</a>
+        </p>
+
+      </div>
+      <footer class="footer">
+          <p>&copy; Company 2017</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  table, th, td {
+    padding: 10px;
+    margin-bottom: 100px;
+  }
+</style>

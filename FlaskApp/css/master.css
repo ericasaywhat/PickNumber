@@ -1,0 +1,120 @@
+/*body{
+	background-color: #000;
+	font-family: 'Ubuntu Condensed', monospace;
+}*/
+
+table, th, td {
+    padding: 10px;
+    margin: 10px;
+}
+/*h1{
+	color: #fff;
+	font-family:'Ubuntu Condensed', monospace;
+	text-align: center;
+	font-size: 50px;
+	font-weight: 300;
+}
+
+a, a:visited {
+	font-size: 30px;
+	color: #fff;
+	text-decoration: none;
+}
+
+
+
+.fade-in-title{
+	list-style-type: none;
+}
+
+.fade-in-title li{
+	display:inline-block;
+	margin-right: 30px;
+	font-family: 'Ubuntu Condensed', monospace;
+	color: #fff;
+	opacity: 1;
+	transition: all 5s ease;
+}
+
+.fade-in-title li: last-child{
+	margin-right: 0;
+}
+
+.fade-in-title.hidden li{
+	opacity: 0;
+}
+
+.c1.hidden1 {
+	opacity: 0;
+
+}
+
+.c1 {
+	opacity: 1;
+	margin-right: 20%;
+	margin-left: 20%;
+	font-family: 'Ubuntu Condensed', monospace;
+	font-weight: 100;
+	font-size: 22.5px;
+	transition: all 5s ease;
+}
+
+
+.c2.hidden2 {
+	opacity: 0;
+
+}
+
+.c2 img{
+	margin-right: 100px;
+	margin-bottom: 20%;
+}
+
+
+.c2 img:hover{
+	filter: opacity(.2);
+}
+
+.c2 {
+	opacity: 1;
+	margin-top: 100px;
+	margin-right: 20%;
+	margin-left: 25%;
+	font-family: 'Ubuntu Condensed', monospace;
+	font-weight: 100;
+	font-size: 22.5px;
+	transition: all 5s ease;
+	filter: invert(1);
+
+
+}
+
+.c3.hidden3 {
+	opacity: 0;
+
+}
+
+.c3 {
+	opacity: 1;
+	margin-right: 20%;
+	margin-left: 20%;
+	font-family: 'Ubuntu Condensed', monospace;
+	font-weight: 100;
+	font-size: 22.5px;
+	transition: all 5s ease;
+}
+
+.link {
+	opacity: 1;
+	margin-right: 20%;
+	margin-left: 20%;
+	font-family: 'Ubuntu Condensed', monospace;
+	font-weight: 100;
+}
+
+.link a:hover{
+	filter: opacity(.2);
+}*/
+
+
+

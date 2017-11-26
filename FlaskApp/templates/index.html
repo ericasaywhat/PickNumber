@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>Spec D Tuning</title>
+		<!-- <link rel = "stylesheet" href = "css/master.css"> -->
+		<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://getbootstrap.com/docs/4.0/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+	    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class = "container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a href="viewTable">View Table</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Spec D Tuning Raffle!</h3>
+        </div>
+			<div class = "jumbotron">
+				<h1 id = "title">Take a Number</h1>
+				<form id="form" class="form-signin" action="{{  url_for('displayNumber')  }}" method="POST">
+        		  <label for="inputName" class="sr-only">Name</label>
+        		  <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Full Name (e.g. John Smith)" required="required" pattern="^\S+\s\S+$"/>
+  	   	</form>
+				<p class = "lead"></p>
+<!-- 				<p>
+          <a class = "btn btn-lg btn-success" role = "button" ng-disabled="document.getElementById('form')" onclick = "submitForm()">Take a Number</a>
+				</p> -->
+				<div>
+            <h2 id = "text" />
+            <h2 id = "number" name="number" />
+        </div>
+			</div>
+      <footer class="footer">
+          <p>&copy; Company 2017</p>
+      </footer>
+		</div>
+	</body>
+</html>
+
+<!-- <script>
+	function submitForm() {
+		var input = document.getElementById('inputName');
+		var form = document.getElementById('form');
+
+		if(form.checkValidity) {
+			form.submit()
+		} else {
+			var elem = document.createElement('div');
+			elem.id= 'notify';
+	    elem.style.display = 'none';
+			elem.textContent = 'Please enter your full name (e.g. John Smith)';
+      elem.className = 'error';
+      elem.style.display = 'block';
+	    form.appendChild(elem);
+
+		}
+	}
+
+
+</script>
+ -->
