@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>Spec D Tuning</title>
+		<!-- <link rel = "stylesheet" href = "css/master.css"> -->
+		<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://getbootstrap.com/docs/4.0/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+	   <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class = "container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills float-right">
+                    <li role="nav-item">
+                    	<a class="nav-link" href="/">
+                    		Pick Number
+                    	</a>
+                    </li>
+                    <li role="nav-item">
+                    	<a class="nav-link" href="viewTable">
+                    		View Table
+                    	</a>
+                    </li>
+                    <li role="nav-item">
+                    	<a class="nav-link active" href="viewTable">
+                    		Set Capacity
+                    	</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Spec D Tuning Raffle!</h3>
+        </div>
+			<div class = "jumbotron">
+				<h1 id = "title">Set Capacity</h1>
+				<form id="form" class="form-signin" action="{{  url_for('main')  }}" method="POST">
+        		  <label for="capacity" class="sr-only">Capacity</label>
+        		  <input type="number" name="capacity" id="capacity" class="form-control" placeholder={{ capacity }} required="required"/>
+  	   	</form>
+				<p class = "lead"></p>
+			</div>
+      <footer class="footer">
+          <p>&copy; Company 2017</p>
+      </footer>
+		</div>
+	</body>
+</html>

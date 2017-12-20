@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>Spec D Tuning</title>
+		<!-- <link rel = "stylesheet" href = "css/master.css"> -->
+		<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://getbootstrap.com/docs/4.0/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+	    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class = "container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills float-right">
+                    <li role="nav-item">
+                      <a class="nav-link active" href="/">Pick Number</a>
+                    </li>
+                    <li role="nav-item">
+                      <a class="nav-link" href="viewTable">View Table</a>
+                    </li>
+                    <li role="nav-item">
+                      <a class="nav-link" href="setCapacity">Set Capacity</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Spec D Tuning Raffle!</h3>
+        </div>
+			<div class = "jumbotron">
+				<h1 id = "title">Take a Number</h1>
+        <div id="content">
+          <p>{{ msg }}</p>
+          {% if number is not none %}
+          <h2 id = "text">Hi {{ name }}!</h2>
+          <h2 id = "num">Your number is {{ number }}</h2>
+          {% else %}
+          <h2 id = "text"></h2>
+          <h2 id = "num"></h2>
+          {% endif %}
+        </div>
+				<p class = "lead"></p>
+				<p>
+          <a href="/" class = "btn btn-lg btn-success" role = "button">Done</a>
+				</p>
+
+			</div>
+      <footer class="footer">
+          <p>&copy; Company 2017</p>
+      </footer>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+  // console.log(number)
+  // console.log({{ number }});
+  // var number = {{ number }};
+  // console.log(number);
+  // console.log(typeof number);
+
+  // if ({{ number }}=="NONE"){
+  //   console.log("halep")
+  //   var text = document.getElementById("text");
+  //   var num = document.getElementById("num");
+  //   text.style.display = "none";
+  //   num.style.display = "none";
+  // }
+
+</script>

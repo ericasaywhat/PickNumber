@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>Spec D Tuning</title>
+		<!-- <link rel = "stylesheet" href = "css/master.css"> -->
+		<link rel="stylesheet" href="awesomplete/awesomplete.css" />
+		<script src="./awesomplete.js" async></script>
+		<link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
+		<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://getbootstrap.com/docs/4.0/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class = "container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills float-right">
+                    <li role="nav-item">
+                    	<a class="nav-link active" href="/">Pick Number</a>
+                    </li>
+                    <li role="nav-item">
+                    	<a class="nav-link" href="viewTable">View Table</a>
+                    </li>
+                    <li role="nav-item">
+                    	<a class="nav-link" href="setCapacity">Set Capacity</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Spec D Tuning Raffle!</h3>
+        </div>
+			<p>
+				<ul class="nav nav-pills float-right">
+					<li role="nav-item">
+	        	<a class = "nav-link" href="setCapacity">Edit Capacity = {{ capacity }}</a>
+	      	</li>
+      	</ul>
+			</p>
+			<div class = "jumbotron">
+				<h1 id = "title">Take a Number</h1>
+				<form id="form" class="form-signin" action="{{  url_for('displayNumber')  }}" method="POST">
+        		  <label for="inputName" class="sr-only">Name</label>
+        		  <input type="name" name="inputName" id="inputName" class="awesomplete" data-list="Erica, Lee, Happy, Chris, tmas" placeholder="Full Name (e.g. John Smith)" required="required" pattern="^\S+\s\S+$"/>
+        		  <!-- <input name="inputName" id="inputName" class="awesomplete" data-list="Erica, Lee, Happy, Chris, tmas" placeholder="Full Name (e.g. John Smith)"/>
+        		  <input class="awesomplete"
+       				data-list="Ada, Java, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails" /> -->
+  	   	</form>
+				<p class = "lead"></p>
+			</div>
+      <footer class="footer">
+          <p>&copy; Company 2017</p>
+      </footer>
+		</div>
+	</body>
+</html>
+
+<!-- <script>
+	function submitForm() {
+		var input = document.getElementById('inputName');
+		var form = document.getElementById('form');
+
+		if(form.checkValidity) {
+			form.submit()
+		} else {
+			var elem = document.createElement('div');
+			elem.id= 'notify';
+	    elem.style.display = 'none';
+			elem.textContent = 'Please enter your full name (e.g. John Smith)';
+      elem.className = 'error';
+      elem.style.display = 'block';
+	    form.appendChild(elem);
+
+		}
+	}
+
+
+</script>
+ -->
