@@ -5,7 +5,7 @@ import random
 
 app = Flask(__name__)
 
-capacity = None
+# capacity = None
 inputNumber = ""
 
 @app.route("/", methods=["GET", "POST"])
