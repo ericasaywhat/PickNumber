@@ -12,15 +12,15 @@ inputNumber = ""
 def main():
   global capacity
   # datalist = getNames()
-  if request.method == "POST":
-    capacity = None
-    # setattr(g, 'capacity',request.form['capacity'])
-    # capacity = getattr(g, 'capacity', 100)
-    capacity = request.form['capacity']
+  try:
+    if request.method == "POST":
+      capacity = request.form['capacity']
+      setattr(g, 'capacity', capacity)
+      return render_template('index.html', capacity=capacity)
     return render_template('index.html', capacity=capacity)
-  # capacity = getattr(g, 'capacity', 100)
-  # capacity = g.get('capacity', 100)
-  return render_template('index.html', capacity=capacity)
+  except:
+    capacity = None
+    return redirect("/setCapacity")
 
 def getNames():
   file = pd.read_csv('spec_raffle.csv')
@@ -35,7 +35,7 @@ def printNumber():
 @app.route("/setCapacity")
 def setCapacity():
   global capacity
-  # capacity = getattr(g,'capacity', 100)
+  # capacity = getattr(g,'capacity', None)
   # capacity = g.get('capacity', 100)
   return render_template('setCapacity.html', capacity = capacity)
 
