@@ -5,7 +5,7 @@ import random
 
 app = Flask(__name__)
 
-# capacity = None
+capacity = None
 inputNumber = ""
 
 @app.route("/", methods=["GET", "POST"])
@@ -48,7 +48,7 @@ def displayNumber():
   if request.method == "POST":
     try:
       inputName = request.form['inputName']
-      # number = None
+      number = None
       msg=""
       with sql.connect("data.db") as con:
         cur = con.cursor()
@@ -60,7 +60,7 @@ def displayNumber():
           cur.execute('INSERT INTO users (name,num) VALUES (?,?)',(inputName,number))
           con.commit()
         else:
-          # number = None
+          number = None
           msg = "Please set capacity"
           # return render_template('displayNumber.html', name = name, number = number, msg=msg)
     except:
