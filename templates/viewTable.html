@@ -10,35 +10,47 @@
 
   <body>
     <div class = "container">
-        <div class="header">
-            <nav>
-                <ul class="nav nav-pills float-right">
-                    <li role="nav-item">
-                      <a class="nav-link" href="/">Pick Number</a>
-                    </li>
-                    <li role="nav-item">
-                      <a class="nav-link active" href="viewTable">View Table</a>
-                    </li>
-                    <li role="nav-item">
-                      <a class="nav-link" href="setCapacity">Set Capacity</a>
-                    </li>
-                </ul>
-            </nav>
-            <h3 class="text-muted">Spec D Tuning Raffle!</h3>
-        </div>
+      <div class="header">
+          <nav>
+              <ul class="nav nav-pills float-right">
+                  <li role="nav-item">
+                    <a class="nav-link" href="/">Pick Number</a>
+                  </li>
+                  <li role="nav-item">
+                    <a class="nav-link active" href="viewTable">View Table</a>
+                  </li>
+                  <li role="nav-item">
+                    <a class="nav-link" href="setCapacity">Set Capacity</a>
+                  </li>
+              </ul>
+          </nav>
+          <h3 class="text-muted">Spec D Tuning Raffle!</h3>
+      </div>
+      <p>
+        <ul class="nav nav-pills float-right">
+          <li role="nav-item">
+            <a class = "nav-link" href="deleteTable">
+              <span>clear</span>
+            </a>
+          </li>
+        </ul>
+      </p>
       <div class = "jumbotron">
         <table border = 2 align="center">
           <thead>
             <td>Name</td>
             <td>Number</td>
           </thead>
-
-          {% for row in rows %}
-          <tr>
-            <td>{{row["name"]}}</td>
-            <td>{{row["num"]}}</td>
-          </tr>
-          {% endfor %}
+          {% if rows %}
+            {% for row in rows if rows%}
+            <tr>
+              <td>{{row["name"]}}</td>
+              <td>{{row["num"]}}</td>
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr></tr>
+          {% endif %}
         </table>
         <p>
           <a href="/" class = "btn btn-lg btn-success" role = "button">Done</a>
@@ -58,3 +70,23 @@
     margin-bottom: 100px;
   }
 </style>
+
+<script type="text/javascript">
+var db = openDatabase("data", 1, "users", 200000);  // Open SQLite Database
+console.log(db)
+var dropStatement= "DROP TABLE users"
+function clearTable() {
+  console.log("clearing!!")
+  db.transaction(
+    function(transaction) {
+      transaction.executeSql(dropStatement,[],
+        function(tx,results){console.log("Successfully Dropped")},
+        function(tx,error){console.log("Could not delete")}
+      );
+    }
+  );
+
+}
+
+
+</script>

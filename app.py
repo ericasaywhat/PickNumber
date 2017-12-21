@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, g
+from flask import Flask, render_template, request, g, redirect
 import sqlite3 as sql
 import pandas as pd
 import random
@@ -6,6 +6,7 @@ import random
 app = Flask(__name__)
 
 capacity = None
+inputNumber = ""
 
 @app.route("/", methods=["GET", "POST"])
 def main():
@@ -24,6 +25,13 @@ def getNames():
   file = pd.read_csv('spec_raffle.csv')
   return file.Name.to_string()
 
+@app.route("/printNumber")
+def printNumber():
+  global inputName
+  global number
+  return render_template('printNumber.html', name=inputName, number=number)
+
+
 
 @app.route("/setCapacity")
 def setCapacity():
@@ -35,6 +43,8 @@ def setCapacity():
 @app.route("/displayNumber", methods=["POST"])
 def displayNumber():
   global capacity
+  global inputName
+  global number
   if request.method == "POST":
     try:
       inputName = request.form['inputName']
@@ -56,7 +66,7 @@ def displayNumber():
     except:
       con.rollback()
     finally:
-      return render_template('displayNumber.html', name=inputName, number=number, msg=msg)
+      return render_template('displayNumber.html', name=str(inputName), number=str(number), msg=msg)
       con.close()
 
 def getUnique(cur, capacity, index):
@@ -76,14 +86,26 @@ def getUnique(cur, capacity, index):
 
 @app.route('/viewTable')
 def viewTable():
+  try:
+    con = sql.connect("data.db")
+    con.row_factory = sql.Row
+
+    cur = con.cursor()
+    cur.execute("select * from users")
+
+    rows = cur.fetchall();
+  except:
+    rows = []
+    print("nope")
+  finally:
+    return render_template('viewTable.html', rows = rows)
+
+@app.route('/deleteTable')
+def deleteTable():
   con = sql.connect("data.db")
-  con.row_factory = sql.Row
+  cur = con.cursor();
+  cur.execute('DROP TABLE users')
 
-  cur = con.cursor()
-  cur.execute("select * from users")
-
-  rows = cur.fetchall();
-  return render_template('viewTable.html', rows = rows)
-
+  return redirect("/viewTable")
 if __name__ == "__main__":
 	app.run()

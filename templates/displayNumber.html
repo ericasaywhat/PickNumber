@@ -6,27 +6,44 @@
 		<!-- <link rel = "stylesheet" href = "css/master.css"> -->
 		<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://getbootstrap.com/docs/4.0/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
-	    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
 	</head>
+
+  <script type="text/javascript">
+  var name1 = {{ name }};
+  var number1 = {{ number }};
+  function printNumber(name, number) {
+    var newWin = window.open();
+    var content = "<h2>"+name+"</h2><h2>"+number+"</h2> ";
+    newWin.document.write(content);
+  }
+
+  </script>
 
 	<body>
 		<div class = "container">
-        <div class="header">
-            <nav>
-                <ul class="nav nav-pills float-right">
-                    <li role="nav-item">
-                      <a class="nav-link active" href="/">Pick Number</a>
-                    </li>
-                    <li role="nav-item">
-                      <a class="nav-link" href="viewTable">View Table</a>
-                    </li>
-                    <li role="nav-item">
-                      <a class="nav-link" href="setCapacity">Set Capacity</a>
-                    </li>
-                </ul>
-            </nav>
-            <h3 class="text-muted">Spec D Tuning Raffle!</h3>
-        </div>
+      <div class="header">
+        <nav>
+            <ul class="nav nav-pills float-right">
+                <li role="nav-item">
+                  <a class="nav-link active" href="/">Pick Number</a>
+                </li>
+                <li role="nav-item">
+                  <a class="nav-link" href="viewTable">View Table</a>
+                </li>
+                <li role="nav-item">
+                  <a class="nav-link" href="setCapacity">Set Capacity</a>
+                </li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Spec D Tuning Raffle!</h3>
+      </div>
+      <p>
+        <ul class="nav nav-pills float-right">
+          <li role="nav-item">
+            <a class = "nav-link" href="printNumber" target="_blank">print</a>
+          </li>
+        </ul>
+      </p>
 			<div class = "jumbotron">
 				<h1 id = "title">Take a Number</h1>
         <div id="content">
@@ -43,28 +60,10 @@
 				<p>
           <a href="/" class = "btn btn-lg btn-success" role = "button">Done</a>
 				</p>
-
-			</div>
+		  </div>
       <footer class="footer">
           <p>&copy; Company 2017</p>
       </footer>
 		</div>
 	</body>
 </html>
-
-<script type="text/javascript">
-  // console.log(number)
-  // console.log({{ number }});
-  // var number = {{ number }};
-  // console.log(number);
-  // console.log(typeof number);
-
-  // if ({{ number }}=="NONE"){
-  //   console.log("halep")
-  //   var text = document.getElementById("text");
-  //   var num = document.getElementById("num");
-  //   text.style.display = "none";
-  //   num.style.display = "none";
-  // }
-
-</script>
