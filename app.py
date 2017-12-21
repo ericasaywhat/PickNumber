@@ -35,7 +35,7 @@ def printNumber():
 
 @app.route("/setCapacity")
 def setCapacity():
-  global Capacity
+  global capacity
   capacity = getattr(g,'capacity', 100)
   # capacity = g.get('capacity', 100)
   return render_template('setCapacity.html', capacity = capacity)
