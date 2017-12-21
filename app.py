@@ -5,7 +5,7 @@ import random
 
 app = Flask(__name__)
 
-capacity = None
+
 inputNumber = ""
 
 @app.route("/", methods=["GET", "POST"])
@@ -13,9 +13,10 @@ def main():
   global capacity
   # datalist = getNames()
   if request.method == "POST":
-    setattr(g, 'capacity',request.form['capacity'])
-    capacity = getattr(g, 'capacity', 100)
-    # capacity = request.form['capacity']
+    capacity = None
+    # setattr(g, 'capacity',request.form['capacity'])
+    # capacity = getattr(g, 'capacity', 100)
+    capacity = request.form['capacity']
     return render_template('index.html', capacity=capacity)
   # capacity = getattr(g, 'capacity', 100)
   # capacity = g.get('capacity', 100)
@@ -31,12 +32,10 @@ def printNumber():
   global number
   return render_template('printNumber.html', name=inputName, number=number)
 
-
-
 @app.route("/setCapacity")
 def setCapacity():
   global capacity
-  capacity = getattr(g,'capacity', 100)
+  # capacity = getattr(g,'capacity', 100)
   # capacity = g.get('capacity', 100)
   return render_template('setCapacity.html', capacity = capacity)
 
