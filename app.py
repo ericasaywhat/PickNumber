@@ -13,9 +13,9 @@ def main():
   global capacity
   # datalist = getNames()
   if request.method == "POST":
-    # setattr(g, 'capacity',request.form['capacity'])
-    # capacity = getattr(g, 'capacity', 100)
-    capacity = request.form['capacity']
+    setattr(g, 'capacity',request.form['capacity'])
+    capacity = getattr(g, 'capacity', 100)
+    # capacity = request.form['capacity']
     return render_template('index.html', capacity=capacity)
   # capacity = getattr(g, 'capacity', 100)
   # capacity = g.get('capacity', 100)
@@ -36,7 +36,7 @@ def printNumber():
 @app.route("/setCapacity")
 def setCapacity():
   global Capacity
-  # capacity = getattr(g,'capacity', 100)
+  capacity = getattr(g,'capacity', 100)
   # capacity = g.get('capacity', 100)
   return render_template('setCapacity.html', capacity = capacity)
 
