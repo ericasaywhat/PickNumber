@@ -107,8 +107,8 @@ def displayNumber():
             print("here2")
             # print(getUnique(cur,capacity, 1))
             number, msg = getUnique(cur, int(capacity), 1)
-            print (number, msg)
-            cur.execute('INSERT INTO users (name,num) VALUES (?,?)',(inputName,number))
+            if number is not None:
+              cur.execute('INSERT INTO users (name,num) VALUES (?,?)',(inputName,number))
             con.commit()
           else:
             number = None
@@ -125,9 +125,7 @@ def displayNumber():
 
 def getUnique(cur, capacity, index):
   number = random.randint(1, int(capacity))
-  print(cur)
   cur.execute('SELECT * FROM users WHERE num=?', (number,))
-  print(cur.fetchone())
   entry = cur.fetchall()
   print(len(entry), "here4")
   while len(entry) != 0:
