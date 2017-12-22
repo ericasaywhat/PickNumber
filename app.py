@@ -5,26 +5,58 @@ import random
 
 app = Flask(__name__)
 
-
 inputNumber = ""
 
 @app.route("/", methods=["GET", "POST"])
 def main():
   global capacity
   # datalist = getNames()
-  try:
-    if request.method == "POST":
-      capacity = request.form['capacity']
-      setattr(g, 'capacity', capacity)
-      return render_template('index.html', capacity=capacity)
+  # try:
+  if request.method == "POST":
+    capacity = request.form['capacity']
+    setCapacityValue(capacity)
+    print(capacity, "capacity")
+    # setattr(g, 'capacity', capacity)
     return render_template('index.html', capacity=capacity)
-  except:
-    capacity = None
-    return redirect("/setCapacity")
+  capacity = getCapacity();
+  return render_template('index.html', capacity=capacity)
+  # except:
+  #   print("eyyy")
+  #   with sql.connect("persistentData.db") as con:
+  #     cur = con.cursor()
+  #     cur.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
+  #   return redirect("/setCapacity")
+
+  con.close()
 
 def getNames():
   file = pd.read_csv('spec_raffle.csv')
   return file.Name.to_string()
+
+def getCapacity():
+  capacity = "None"
+  with sql.connect("persistentData.db") as con:
+    cur = con.cursor()
+    cur.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
+    cur.execute('SELECT * FROM data WHERE name=?', ("capacity",))
+    result = cur.fetchone()
+    if result is None:
+      return None
+    else:
+      name, capacity = result
+      return capacity
+
+def setCapacityValue(capacity):
+  with sql.connect("persistentData.db") as con:
+    cur = con.cursor()
+    print(capacity, "setCapacityValue")
+    cur.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
+    existingCapacity = getCapacity()
+    if existingCapacity is not None:
+      cur.execute('UPDATE data SET data=?',(capacity,))
+    else:
+      cur.execute('INSERT INTO data (name, data) VALUES (?,?)', ("capacity", capacity))
+    con.commit()
 
 @app.route("/printNumber")
 def printNumber():
@@ -35,6 +67,9 @@ def printNumber():
 @app.route("/setCapacity")
 def setCapacity():
   global capacity
+  capacity = getCapacity()
+  print(type(capacity))
+  print(capacity, "help")
   # capacity = getattr(g,'capacity', None)
   # capacity = g.get('capacity', 100)
   return render_template('setCapacity.html', capacity = capacity)
@@ -85,6 +120,7 @@ def getUnique(cur, capacity, index):
 
 @app.route('/viewTable')
 def viewTable():
+  global capacity
   try:
     con = sql.connect("data.db")
     con.row_factory = sql.Row
