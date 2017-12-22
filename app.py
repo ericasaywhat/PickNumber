@@ -10,9 +10,7 @@ inputNumber = ""
 @app.route("/", methods=["GET", "POST"])
 def main():
   global capacity
-  datalist = getNames()
-  for name in datalist:
-    print(name)
+  datalist = getAvailableNames()
   # try:
   if request.method == "POST":
     capacity = request.form['capacity']
@@ -34,13 +32,28 @@ def getNames():
   file = pd.read_csv('spec_raffle.csv')
   return file.Name.tolist()
 
+def getExistingNames():
+  with sql.connect("data.db") as con:
+    cur = con.cursor()
+    cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num TEXT)')
+    cur.execute('SELECT * FROM users')
+    result = cur.fetchall()
+    if result is None:
+      return []
+    else:
+      return [name for name, number in result]
+def getAvailableNames():
+  allNames = getNames()
+  usedNames = getExistingNames()
+  return [name for name in allNames if name not in usedNames]
+
 def getCapacity():
   capacity = "None"
-  with sql.connect("persistentData.db") as con:
-    cur = con.cursor()
-    cur.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
-    cur.execute('SELECT * FROM data WHERE name=?', ("capacity",))
-    result = cur.fetchone()
+  with sql.connect("persistentData.db") as pd:
+    pdc = pd.cursor()
+    pdc.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
+    pdc.execute('SELECT * FROM data WHERE name=?', ("capacity",))
+    result = pdc.fetchone()
     if result is None:
       return None
     else:
@@ -48,16 +61,16 @@ def getCapacity():
       return capacity
 
 def setCapacityValue(capacity):
-  with sql.connect("persistentData.db") as con:
-    cur = con.cursor()
+  with sql.connect("persistentData.db") as pd:
+    pdc = pd.cursor()
     print(capacity, "setCapacityValue")
-    cur.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
+    pdc.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
     existingCapacity = getCapacity()
     if existingCapacity is not None:
-      cur.execute('UPDATE data SET data=?',(capacity,))
+      pdc.execute('UPDATE data SET data=?',(capacity,))
     else:
-      cur.execute('INSERT INTO data (name, data) VALUES (?,?)', ("capacity", capacity))
-    con.commit()
+      pdc.execute('INSERT INTO data (name, data) VALUES (?,?)', ("capacity", capacity))
+    pd.commit()
 
 @app.route("/printNumber")
 def printNumber():
@@ -68,8 +81,6 @@ def printNumber():
 @app.route("/setCapacity")
 def setCapacity():
   capacity = getCapacity()
-  print(type(capacity))
-  print(capacity, "help")
   # capacity = getattr(g,'capacity', None)
   # capacity = g.get('capacity', 100)
   return render_template('setCapacity.html', capacity = capacity)
@@ -78,18 +89,22 @@ def setCapacity():
 def displayNumber():
   global inputName
   global number
-  datalist = getNames()
+  datalist = getAvailableNames()
   capacity = getCapacity()
   if request.method == "POST":
     try:
       inputName = request.form['inputName']
       number = None
       msg=""
+      print(datalist, ",", inputName, capacity)
       if inputName in datalist:
+        print("available!!!")
         with sql.connect("data.db") as con:
           cur = con.cursor()
           cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num TEXT)')
+          print("here1")
           if capacity is not None:
+            print("here2")
             # print(getUnique(cur,capacity, 1))
             number, msg = getUnique(cur, int(capacity), 1)
             print (number, msg)
@@ -110,8 +125,11 @@ def displayNumber():
 
 def getUnique(cur, capacity, index):
   number = random.randint(1, int(capacity))
+  print(cur)
   cur.execute('SELECT * FROM users WHERE num=?', (number,))
+  print(cur.fetchone())
   entry = cur.fetchall()
+  print(len(entry), "here4")
   while len(entry) != 0:
     number = random.randint(1, int(capacity))
     cur.execute('SELECT * FROM users WHERE num=?', (number,))
