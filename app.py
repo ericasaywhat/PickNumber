@@ -66,7 +66,6 @@ def printNumber():
 
 @app.route("/setCapacity")
 def setCapacity():
-  global capacity
   capacity = getCapacity()
   print(type(capacity))
   print(capacity, "help")
@@ -76,9 +75,9 @@ def setCapacity():
 
 @app.route("/displayNumber", methods=["POST"])
 def displayNumber():
-  global capacity
   global inputName
   global number
+  capacity = getCapacity()
   if request.method == "POST":
     try:
       inputName = request.form['inputName']
@@ -120,7 +119,6 @@ def getUnique(cur, capacity, index):
 
 @app.route('/viewTable')
 def viewTable():
-  global capacity
   try:
     con = sql.connect("data.db")
     con.row_factory = sql.Row
