@@ -78,25 +78,30 @@ def setCapacity():
 def displayNumber():
   global inputName
   global number
+  datalist = getNames()
   capacity = getCapacity()
   if request.method == "POST":
     try:
       inputName = request.form['inputName']
       number = None
       msg=""
-      with sql.connect("data.db") as con:
-        cur = con.cursor()
-        cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num TEXT)')
-        if capacity is not None:
-          # print(getUnique(cur,capacity, 1))
-          number, msg = getUnique(cur, int(capacity), 1)
-          print (number, msg)
-          cur.execute('INSERT INTO users (name,num) VALUES (?,?)',(inputName,number))
-          con.commit()
-        else:
-          number = None
-          msg = "Please set capacity"
-          # return render_template('displayNumber.html', name = name, number = number, msg=msg)
+      if inputName in datalist:
+        with sql.connect("data.db") as con:
+          cur = con.cursor()
+          cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num TEXT)')
+          if capacity is not None:
+            # print(getUnique(cur,capacity, 1))
+            number, msg = getUnique(cur, int(capacity), 1)
+            print (number, msg)
+            cur.execute('INSERT INTO users (name,num) VALUES (?,?)',(inputName,number))
+            con.commit()
+          else:
+            number = None
+            msg = "Please set capacity"
+            # return render_template('displayNumber.html', name = name, number = number, msg=msg)
+      else:
+        number = None
+        msg = "Name not found"
     except:
       con.rollback()
     finally:

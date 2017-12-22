@@ -40,14 +40,9 @@
               <input name="inputName" list="name-input" type="text">
               <datalist id="name-input">
                 {% for name in datalist %}
-                  <option value={{ name }}>{{ name }}</option>
-                  {% endfor %}
+                <option value="{{ name }}">{{ name }}</option>
+                {% endfor %}
               </datalist>
-
-        		  <!-- <input type="name" name="inputName" id="inputName" class="awesomplete" data-list="Erica, Lee, Happy, Chris, tmas" placeholder="Full Name (e.g. John Smith)" required="required" pattern="^\S+\s\S+$"/> -->
-        		  <!-- <input name="inputName" id="inputName" class="awesomplete" data-list="Erica, Lee, Happy, Chris, tmas" placeholder="Full Name (e.g. John Smith)"/>
-        		  <input class="awesomplete"
-       				data-list="Ada, Java, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails" /> -->
   	   	</form>
 				<p class = "lead"></p>
 			</div>
