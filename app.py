@@ -10,16 +10,17 @@ inputNumber = ""
 @app.route("/", methods=["GET", "POST"])
 def main():
   global capacity
-  # datalist = getNames()
+  datalist = getNames()
+  for name in datalist:
+    print(name)
   # try:
   if request.method == "POST":
     capacity = request.form['capacity']
     setCapacityValue(capacity)
-    print(capacity, "capacity")
     # setattr(g, 'capacity', capacity)
-    return render_template('index.html', capacity=capacity)
+    return render_template('index.html', capacity=capacity, datalist=datalist)
   capacity = getCapacity();
-  return render_template('index.html', capacity=capacity)
+  return render_template('index.html', capacity=capacity, datalist=datalist)
   # except:
   #   print("eyyy")
   #   with sql.connect("persistentData.db") as con:
@@ -31,7 +32,7 @@ def main():
 
 def getNames():
   file = pd.read_csv('spec_raffle.csv')
-  return file.Name.to_string()
+  return file.Name.tolist()
 
 def getCapacity():
   capacity = "None"
