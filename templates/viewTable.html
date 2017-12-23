@@ -36,13 +36,13 @@
         </ul>
       </p>
       <div class = "jumbotron">
-        <table border = 2 align="center">
+        <table border = 2 align="left">
           <thead>
             <td>Name</td>
             <td>Number</td>
           </thead>
           {% if rows %}
-            {% for row in rows if rows%}
+            {% for row in rows%}
             <tr>
               <td>{{row["name"]}}</td>
               <td>{{row["num"]}}</td>
@@ -51,6 +51,16 @@
           {% else %}
             <tr></tr>
           {% endif %}
+        </table>
+        <table border = 2 align="center">
+          <thead>
+            <td>No Number Assigned to:</td>
+          </thead>
+          {% for name in availableNames %}
+          <tr>
+            <td>{{name}}</td>
+          </tr>
+          {% endfor %}
         </table>
         <p>
           <a href="/" class = "btn btn-lg btn-success" role = "button">Done</a>

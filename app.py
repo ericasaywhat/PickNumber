@@ -146,14 +146,14 @@ def viewTable():
     con.row_factory = sql.Row
 
     cur = con.cursor()
-    cur.execute("select * from users")
+    cur.execute("SELECT * FROM users ORDER BY num ")
 
     rows = cur.fetchall();
   except:
     rows = []
     print("nope")
   finally:
-    return render_template('viewTable.html', rows = rows)
+    return render_template('viewTable.html', rows = rows, availableNames = getAvailableNames())
 
 @app.route('/deleteTable')
 def deleteTable():
