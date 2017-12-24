@@ -35,7 +35,7 @@ def getNames():
 def getExistingNames():
   with sql.connect("data.db") as con:
     cur = con.cursor()
-    cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num INTEGER)')
     cur.execute('SELECT * FROM users')
     result = cur.fetchall()
     if result is None:
@@ -101,7 +101,7 @@ def displayNumber():
         print("available!!!")
         with sql.connect("data.db") as con:
           cur = con.cursor()
-          cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num TEXT)')
+          cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num INTEGER)')
           print("here1")
           if capacity is not None:
             print("here2")
