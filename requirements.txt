@@ -32,6 +32,7 @@ fastcache==1.0.2
 flake8==3.5.0
 Flask==0.12.2
 Flask-Cors==3.0.2
+Flask-Cache==0.13.1
 gevent==1.2.1
 greenlet==0.4.12
 gunicorn==19.7.1

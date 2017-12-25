@@ -10,7 +10,7 @@
 
   <script type="text/javascript">
   function printNumber(name, number) {
-    var newWin = window.open();
+    var newWin = window.open('printNumber.html', 'newwindow', 'width=300','height=250');
     var content = "<h2>"+name+"</h2><h2>"+number+"</h2> ";
     newWin.document.write(content);
   }

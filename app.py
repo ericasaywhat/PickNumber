@@ -1,9 +1,15 @@
 from flask import Flask, render_template, request, g, redirect
+from flask.ext.cache import Cache
 import sqlite3 as sql
 import pandas as pd
 import random
 
 app = Flask(__name__)
+
+app.config["CACHE_TYPE"] = "null"
+cache = Cache(config={'CACHE_TYPE': 'simple'})
+cache.init_app(app)
+
 
 inputNumber = ""
 
@@ -72,10 +78,12 @@ def setCapacityValue(capacity):
       pdc.execute('INSERT INTO data (name, data) VALUES (?,?)', ("capacity", capacity))
     pd.commit()
 
+
 @app.route("/printNumber")
 def printNumber():
   global inputName
   global number
+  cache.clear()
   return render_template('printNumber.html', name=inputName, number=number)
 
 @app.route("/setCapacity")
