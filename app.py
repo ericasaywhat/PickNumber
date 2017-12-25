@@ -77,7 +77,7 @@ def setCapacityValue(capacity):
 def printNumber(variable):
   global inputName
   global number
-  return render_template('printNumber.html', name=variable, number=number)
+  return render_template('printNumber.html', name=inputName, number=number)
 
 @app.route("/setCapacity")
 def setCapacity():
