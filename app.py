@@ -45,7 +45,7 @@ def getExistingNames():
 def getAvailableNames():
   allNames = getNames()
   usedNames = getExistingNames()
-  return [name for name in allNames if name not in usedNames]
+  return [name.strip() for name in allNames if name not in usedNames]
 
 def getCapacity():
   capacity = "None"
