@@ -127,7 +127,7 @@ def displayNumber():
     except:
       con.rollback()
     finally:
-      return render_template('displayNumber.html', name=str(inputName), number=str(number), msg=msg)
+      return render_template('displayNumber.html', name=str(inputName), number=number, msg=msg)
       con.close()
 
 def getUnique(cur, capacity, index):
