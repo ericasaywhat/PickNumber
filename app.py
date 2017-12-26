@@ -69,7 +69,7 @@ def setCapacityValue(capacity):
     pd.commit()
 
 @app.route("/printNumber<string:name><int:num>")
-def printNumber(variable, num):
+def printNumber(name, num):
   global inputName
   global number
   print(inputName)
