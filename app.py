@@ -40,7 +40,6 @@ def getExistingNames():
 def getAvailableNames():
   allNames = getNames()
   usedNames = getExistingNames()
-  print(usedNames)
   return [name for name in allNames if name not in usedNames]
 
 def getCapacity():
@@ -68,12 +67,13 @@ def setCapacityValue(capacity):
       pdc.execute('INSERT INTO data (name, data) VALUES (?,?)', ("capacity", capacity))
     pd.commit()
 
-@app.route("/printNumber<string:name><string:num>")
-def printNumber(name, num):
+@app.route("/printNumber<string:username>/<string:num>")
+def printNumber(username, num):
   global inputName
   global number
-  print(inputName)
-  return render_template('printNumber.html', name=name, number=num)
+  print(username)
+  print(num)
+  return render_template('printNumber.html', name=username, number=num)
 
 # def getName():
 #   global inputName
@@ -108,12 +108,10 @@ def displayNumber():
       inputName = request.form['inputName']
       number = None
       msg=""
-      print(datalist, ",", inputName, capacity)
       if inputName in datalist:
         with sql.connect("data.db") as con:
           cur = con.cursor()
           cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num INTEGER)')
-          print("here1")
           if capacity is not None:
             number, msg = getUnique(cur, int(capacity), 1)
             if number is not None:
@@ -129,14 +127,13 @@ def displayNumber():
     except:
       con.rollback()
     finally:
-      return render_template('displayNumber.html', name=str(inputName), number=number, msg=msg)
+      return render_template('displayNumber.html', name=str(inputName), number=str(number), msg=msg)
       con.close()
 
 def getUnique(cur, capacity, index):
   number = random.randint(1, int(capacity))
   cur.execute('SELECT * FROM users WHERE num=?', (number,))
   entry = cur.fetchall()
-  print(len(entry), "here4")
   while len(entry) != 0:
     number = random.randint(1, int(capacity))
     cur.execute('SELECT * FROM users WHERE num=?', (number,))
@@ -160,7 +157,6 @@ def viewTable():
     rows = cur.fetchall();
   except:
     rows = []
-    print("nope")
   finally:
     return render_template('viewTable.html', rows = rows, availableNames = getAvailableNames())
 
