@@ -19,18 +19,13 @@ def main():
     return render_template('index.html', capacity=capacity, datalist=datalist)
   capacity = getCapacity();
   return render_template('index.html', capacity=capacity, datalist=datalist)
-  # except:
-  #   print("eyyy")
-  #   with sql.connect("persistentData.db") as con:
-  #     cur = con.cursor()
-  #     cur.execute('CREATE TABLE IF NOT EXISTS data (name TEXT, data TEXT)')
-  #   return redirect("/setCapacity")
 
   con.close()
 
 def getNames():
   file = pd.read_csv('spec_raffle.csv')
-  return file.Name.tolist()
+  names = file.Name.tolist()
+  return [name.strip() for name in names]
 
 def getExistingNames():
   with sql.connect("data.db") as con:
@@ -41,11 +36,12 @@ def getExistingNames():
     if result is None:
       return []
     else:
-      return [name for name, number in result]
+      return [name.strip() for name, number in result]
 def getAvailableNames():
   allNames = getNames()
   usedNames = getExistingNames()
-  return [name.strip() for name in allNames if name not in usedNames]
+  print(usedNames)
+  return [name for name in allNames if name not in usedNames]
 
 def getCapacity():
   capacity = "None"
@@ -72,12 +68,12 @@ def setCapacityValue(capacity):
       pdc.execute('INSERT INTO data (name, data) VALUES (?,?)', ("capacity", capacity))
     pd.commit()
 
-
 @app.route("/printNumber<string:variable>")
 def printNumber(variable):
   global inputName
   global number
-  return render_template('printNumber.html', name=inputName, number=number)
+  print(inputName)
+  return render_template('printNumber.html', name=variable, number=number)
 
 @app.route("/setCapacity")
 def setCapacity():
@@ -99,14 +95,11 @@ def displayNumber():
       msg=""
       print(datalist, ",", inputName, capacity)
       if inputName in datalist:
-        print("available!!!")
         with sql.connect("data.db") as con:
           cur = con.cursor()
           cur.execute('CREATE TABLE IF NOT EXISTS users (name TEXT, num INTEGER)')
           print("here1")
           if capacity is not None:
-            print("here2")
-            # print(getUnique(cur,capacity, 1))
             number, msg = getUnique(cur, int(capacity), 1)
             if number is not None:
               cur.execute('INSERT INTO users (name,num) VALUES (?,?)',(inputName,number))
