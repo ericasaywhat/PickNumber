@@ -158,7 +158,8 @@ def viewTable():
   except:
     rows = []
   finally:
-    return render_template('viewTable.html', rows = rows, availableNames = getAvailableNames())
+    availableNames = getAvailableNames()
+    return render_template('viewTable.html', rows = rows, availableNames =availableNames, numberPeople=len(availableNames))
 
 @app.route('/deleteTable')
 def deleteTable():
