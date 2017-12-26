@@ -68,12 +68,27 @@ def setCapacityValue(capacity):
       pdc.execute('INSERT INTO data (name, data) VALUES (?,?)', ("capacity", capacity))
     pd.commit()
 
-@app.route("/printNumber<string:variable>")
-def printNumber(variable):
+@app.route("/printNumber<string:name><int:num>")
+def printNumber(variable, num):
   global inputName
   global number
   print(inputName)
-  return render_template('printNumber.html', name=variable, number=number)
+  return render_template('printNumber.html', name=name, number=num)
+
+# def getName():
+#   global inputName
+#   return inputName
+# def setName(newName):
+#   global inputName
+#   inputName = newName
+
+# def getNumber():
+#   global number
+#   return number
+
+# def setNumber(newNumber):
+#   global number
+#   number = newNumber
 
 @app.route("/setCapacity")
 def setCapacity():
